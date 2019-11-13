@@ -7,7 +7,8 @@ const bodyParser = require ('body-parser');1
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use('/', require('./Route/employee'));
+app.use('/', require('./Route/user'));
+app.use('/', require('./Route/report'));
 
 const start = async () => {
     try {
