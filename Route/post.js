@@ -141,3 +141,5 @@ router.get('/report/:id', async function(req,res) {
         res.send(err);
     }
 })
+
+module.exports = router;

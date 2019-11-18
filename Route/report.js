@@ -69,3 +69,5 @@ router.post('/report', async function(req,res) {
         res.send(err);
     }
 })
+
+module.exports = router;
