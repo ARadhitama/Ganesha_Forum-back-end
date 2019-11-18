@@ -31,13 +31,14 @@ function makePost(payload){
     return new Promise((resolve, reject) => {
         const info = [
             payload.topik,
+            0,
             payload.id_user,
             payload.title,
             payload.text,
             today = new Date()
         ]
 
-        db.any('INSERT INTO user(topik, id_user, title, text, date) VALUES ($1, $2, $3, $4, $5) RETURNING *', info)
+        db.any('INSERT INTO user(topik, likes, id_user, title, text, date) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', info)
             .then(data => {
                 resolve(data);
             })
@@ -49,7 +50,7 @@ function makePost(payload){
 
 function deletePost(id_post) {
     return new Promise((resolve, reject) => {
-        db.any(`DELETE FROM post WHERE id = ${id_post} AND id_user = ${id_user}`)
+        db.any(`DELETE FROM post WHERE id = ${id_post}`)
             .then(data => {
                 resolve(data);
             })
@@ -61,7 +62,7 @@ function deletePost(id_post) {
 
 function addLikes(id_post) {
     return new Promise((resolve, reject) => {
-        db.any(`UPDATE user SET like = like + 1 WHERE id = ${id_post} AND id_user = ${id_user} RETURNING *`)
+        db.any(`UPDATE user SET likes = likes + 1 WHERE id = ${id_post}`)
             .then(data => {
                 resolve(data);
             })
@@ -73,7 +74,7 @@ function addLikes(id_post) {
 
 function reportPost(id_post) {
     return new Promise((resolve, reject) => {
-        db.any(`UPDATE post SET report = true WHERE id = ${id_post} AND id_user = ${id_user}`)
+        db.any(`UPDATE post SET report = true WHERE id = ${id_post}`)
             .then(data => {
                 resolve(data);
             })
@@ -102,6 +103,7 @@ router.post('/', async function(req,res) {
         res.send(err);
     }
 })
+
 router.get('/:id', async function(req,res) {
     try {
         const admin = await getPostByID(req.params.id);
@@ -122,7 +124,7 @@ router.delete('/:id', async function(req,res) {
     }
 })
 
-router.post('like/:id', async function(req,res) {
+router.post('/like/:id', async function(req,res) {
     try {
         const admin = await addLikes(req.params.id);
         res.send(admin);
