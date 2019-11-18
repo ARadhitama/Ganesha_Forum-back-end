@@ -84,6 +84,18 @@ function reportPost(id_post) {
     })
 }
 
+function filterPost(topik) {
+    return new Promise((resolve, reject) => {
+        db.any(`SELECT * FROM post WHERE topik = ${topik}`)
+            .then(data => {
+                resolve(data);
+            })
+            .catch(err => {
+                reject(err);
+            })
+    })
+}
+
 router.get('/', async function(req,res) {
     try {
         const admin = await getPost();
@@ -137,6 +149,16 @@ router.post('/like/:id', async function(req,res) {
 router.get('/report/:id', async function(req,res) {
     try {
         const admin = await reportPost(req.params.id);
+        res.send(admin);
+    }catch(err) {
+        console.log(err);
+        res.send(err);
+    }
+})
+
+router.get('/filter/:topik', async function(req,res) {
+    try {
+        const admin = await filterPost(req.params.topik);
         res.send(admin);
     }catch(err) {
         console.log(err);
