@@ -12,7 +12,7 @@ function makeComment(payload){
             today = new Date()
         ]
 
-        db.any('INSERT INTO comment(id_user, text, id_user, date) VALUES ($1, $2, $3, $4) RETURNING *', info)
+        db.any('INSERT INTO comments(id_user, text, id_post, date) VALUES ($1, $2, $3, $4) RETURNING *', info)
             .then(data => {
                 resolve(data);
             })
@@ -24,7 +24,7 @@ function makeComment(payload){
 
 function showComment(id_post) {
     return new Promise((resolve, reject) => {
-        db.any('SELECT * FROM comment WHERE id_post = ' + id_post)
+        db.any('SELECT * FROM comments WHERE id_post = ' + id_post)
             .then(data => {
                 resolve(data);
             })
@@ -34,9 +34,9 @@ function showComment(id_post) {
     })
 }
 
-router.get('/', async function(req, res) {
+router.get('/:id_post', async function(req, res) {
     try {
-        const user = await showComment(req.body.id_post);
+        const user = await showComment(req.params.id_post);
         res.send(user);
     } catch(err) {
         console.log(err);
