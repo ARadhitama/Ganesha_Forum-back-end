@@ -3,9 +3,9 @@ const router = express.Router();
 const path = require('path');
 const db = require('../Datastore/config');
 
-function getPost() {
+function getPost() {        // aman
     return new Promise((resolve, reject) => {
-        db.any('SELECT * FROM post')
+        db.any('SELECT * FROM posts')
             .then(data => {
                 resolve(data);
             })
@@ -17,7 +17,7 @@ function getPost() {
 
 function getPostByID(id) {
     return new Promise((resolve, reject) => {
-        db.any('SELECT * FROM post WHERE id = ' + id)
+        db.any('SELECT * FROM posts WHERE id = ' + id)
             .then(data => {
                 resolve(data);
             })
@@ -27,7 +27,7 @@ function getPostByID(id) {
     })
 }
 
-function makePost(payload){
+function makePost(payload){     // aman
     return new Promise((resolve, reject) => {
         const info = [
             payload.topik,
@@ -38,7 +38,7 @@ function makePost(payload){
             today = new Date()
         ]
 
-        db.any('INSERT INTO user(topik, likes, id_user, title, text, date) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', info)
+        db.any('INSERT INTO posts(topik, likes, id_user, title, text, date) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', info)
             .then(data => {
                 resolve(data);
             })
@@ -50,7 +50,7 @@ function makePost(payload){
 
 function deletePost(id_post) {
     return new Promise((resolve, reject) => {
-        db.any(`DELETE FROM post WHERE id = ${id_post}`)
+        db.any(`DELETE FROM posts WHERE id = ${id_post}`)
             .then(data => {
                 resolve(data);
             })
@@ -62,7 +62,7 @@ function deletePost(id_post) {
 
 function addLikes(id_post) {
     return new Promise((resolve, reject) => {
-        db.any(`UPDATE user SET likes = likes + 1 WHERE id = ${id_post}`)
+        db.any(`UPDATE posts SET likes = likes + 1 WHERE id = ${id_post}`)
             .then(data => {
                 resolve(data);
             })
@@ -74,7 +74,7 @@ function addLikes(id_post) {
 
 function reportPost(id_post) {
     return new Promise((resolve, reject) => {
-        db.any(`UPDATE post SET report = true WHERE id = ${id_post}`)
+        db.any(`UPDATE posts SET report = true WHERE id = ${id_post}`)
             .then(data => {
                 resolve(data);
             })
@@ -86,7 +86,7 @@ function reportPost(id_post) {
 
 function filterPost(topik) {
     return new Promise((resolve, reject) => {
-        db.any(`SELECT * FROM post WHERE topik = ${topik}`)
+        db.any(`SELECT * FROM posts WHERE topik = ${topik}`)
             .then(data => {
                 resolve(data);
             })
