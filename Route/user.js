@@ -47,9 +47,13 @@ function makeUser(payload) {    // aman
     })
 }
 
-function banUser(user_id, status_ban) {
+function banUser(payload) {     // aman
     return new Promise((resolve, reject) => {
-        db.any('UPDATE users SET status_ban = $1 WHERE user_id = $2', [user_id, status_ban])
+        const data = [
+            payload.user_id,
+            payload.status_ban
+        ]
+        db.any('UPDATE users SET status_ban = $2 WHERE user_id = $1', data)
             .then(data => {
                 resolve(data);
             })
@@ -59,9 +63,13 @@ function banUser(user_id, status_ban) {
     })
 }
 
-function setAdmin(user_id, status_admin) {
+function setAdmin(payload) {        // aman
     return new Promise((resolve, reject) => {
-        db.any('UPDATE users set status_admin = $1 WHERE user_id = $2', [user_id, status_admin])
+        const data = [
+            payload.user_id,
+            payload.status_admin
+        ]
+        db.any('UPDATE users set status_admin = $2 WHERE user_id = $1', data)
             .then(data => {
                 resolve(data);
             })
@@ -114,9 +122,9 @@ router.post('/user', async function(req, res) {
     }
 })
 
-router.put('/user/:user_id/:status_ban', async function (req, res) {
+router.put('/user', async function (req, res) {
     try{
-        const user = await banUser(req.params.user_id, req.params.status_ban);
+        const user = await banUser(req.body);
         res.send(user);
     } catch(err) {
         console.log(err);
@@ -124,9 +132,9 @@ router.put('/user/:user_id/:status_ban', async function (req, res) {
     }
 })
 
-router.put('/admin/:user_id/:status_admin', async function(req,res) {
+router.put('/admin', async function(req,res) {
     try {
-        const admin = await setAdmin(req.params.user_id, req.params.status_admin);
+        const admin = await setAdmin(req.body);
         res.send(admin);
     } catch(err) {
         console.log(err);
