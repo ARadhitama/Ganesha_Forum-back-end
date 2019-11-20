@@ -16,19 +16,19 @@ function makeReport(user_id, description) {
     })
 }
 
-function getReportbyID(user_id) {
+function getReportbyID(user_id) {       // aman
     return new Promise((resolve, reject) => {
-        db.any('SELECT * FROM report WHERE user_id = %1', user_id)
+        db.any('SELECT * FROM report WHERE user_id = $1', [user_id])
             .then(data => {
                 resolve(data);
             })
-            .catch(data => {
+            .catch(err => {
                 reject(err);
             })
     })
 }
 
-function deleteReport(report_id) {
+function deleteReport(report_id) {     // aman
     return new Promise((resolve, reject) => {
         db.any('DELETE FROM report WHERE report_id = $1', report_id)
             .then(data => {
@@ -50,7 +50,7 @@ router.get('/report/:user_id', async function(req,res) {
     }
 })
 
-router.delete('/report/:reprot:id', async function(req,res) {
+router.delete('/report/:report_id', async function(req,res) {
     try {
         const report = await deleteReport(req.params.report_id);
         res.send(report);
@@ -62,7 +62,7 @@ router.delete('/report/:reprot:id', async function(req,res) {
 
 router.post('/report', async function(req,res) {
     try {
-        const report = await makeReport(req.body, req.body);
+        const report = await makeReport(req.body);
         res.send(report);
     } catch(err) {
         console.log(err);

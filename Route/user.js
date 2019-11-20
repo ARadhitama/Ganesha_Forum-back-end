@@ -4,9 +4,9 @@ const path = require('path');
 const db = require('../Datastore/config');
 var today = new Date();
 
-function getUser() {
+function getUser() {    // aman
     return new Promise((resolve, reject) => {
-        db.any('SELECT user_id, email, status_admin, date_created, status_ban FROM user')
+        db.any('SELECT user_id, email, status_admin, date_created, status_ban FROM users')
             .then(data => {
                 resolve(data);
             })
@@ -16,9 +16,9 @@ function getUser() {
     })
 }
 
-function getUserbyID(user_id) {
+function getUserbyID(user_id) { // aman
     return new Promise((resolve, reject) => {
-        db.any('SELECT user_id, email, status_admin, date_created, status_ban FROM user WHERE user_id = $1', user_id)
+        db.any('SELECT user_id, email, status_admin, date_created, status_ban FROM users WHERE user_id = $1', [user_id])
             .then(data => {
                 resolve(data);
             })
@@ -28,9 +28,16 @@ function getUserbyID(user_id) {
     })
 }   
 
-function makeUser(email,password) {
+function makeUser(payload) {
     return new Promise((resolve,reject) => {
-        db.any('INSERT INTO user(email, password, status_admin, date_created, status_ban) VALUES ($1, $2, $3, $4, $5)', [email, password, false, today, false])
+        const data = [      
+            payload.email,
+            payload.password,
+            false,
+            today,
+            false
+        ]
+        db.any('INSERT INTO users(email, password, status_admin, date_created, status_ban) VALUES ($1, $2, $3, $4, $5)', data)
             .then(data => {
                 resolve(data);
             })
@@ -42,7 +49,7 @@ function makeUser(email,password) {
 
 function banUser(user_id, status_ban) {
     return new Promise((resolve, reject) => {
-        db.any('UPDATE user SET status_ban = $1 WHERE user_id = $2', [user_id, status_ban])
+        db.any('UPDATE users SET status_ban = $1 WHERE user_id = $2', [user_id, status_ban])
             .then(data => {
                 resolve(data);
             })
@@ -54,7 +61,7 @@ function banUser(user_id, status_ban) {
 
 function setAdmin(user_id, status_admin) {
     return new Promise((resolve, reject) => {
-        db.any('UPDATE user set status_admin = $1 WHERE user_id = $2', [user_id, status_admin])
+        db.any('UPDATE users set status_admin = $1 WHERE user_id = $2', [user_id, status_admin])
             .then(data => {
                 resolve(data);
             })
@@ -64,9 +71,9 @@ function setAdmin(user_id, status_admin) {
     })
 }
 
-function getAdmin() {
-    return new Promise((resove, reject) => {
-        db.any('SELECT user_id, email, date_created FROM user')
+function getAdmin() {       // aman
+    return new Promise((resolve, reject) => {
+        db.any('SELECT user_id, email, date_created FROM users WHERE status_admin = $1', [true])
             .then(data => {
                 resolve(data);
             })

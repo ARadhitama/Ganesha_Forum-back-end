@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 
 app.use('/', require('./Route/user'));
 app.use('/', require('./Route/report'));
+app.use('/post', require('./Route/post'));
 
 const start = async () => {
     try {
