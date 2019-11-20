@@ -48,7 +48,7 @@ function makePost(payload){     // aman
     })
 }
 
-function deletePost(id_post) {
+function deletePost(id_post) {      // aman
     return new Promise((resolve, reject) => {
         db.any(`DELETE FROM posts WHERE id = ${id_post}`)
             .then(data => {
