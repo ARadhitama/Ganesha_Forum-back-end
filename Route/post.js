@@ -15,7 +15,7 @@ function getPost() {        // aman
     })
 }
 
-function getPostByID(id) {
+function getPostByID(id) {      // aman
     return new Promise((resolve, reject) => {
         db.any('SELECT * FROM posts WHERE id_user = ' + id)
             .then(data => {
@@ -60,7 +60,7 @@ function deletePost(id_post) {      // aman
     })
 }
 
-function addLikes(id_post) {
+function addLikes(id_post) {        // aman
     return new Promise((resolve, reject) => {
         db.any(`UPDATE posts SET likes = likes + 1 WHERE id = ${id_post}`)
             .then(data => {
@@ -71,7 +71,7 @@ function addLikes(id_post) {
             })
     })
 }
-
+/*
 function reportPost(id_post) {
     return new Promise((resolve, reject) => {
         db.any(`UPDATE posts SET report = true WHERE id = ${id_post}`)
@@ -83,10 +83,13 @@ function reportPost(id_post) {
             })
     })
 }
-
-function filterPost(topik) {
+*/
+function filterPost(payload) {
     return new Promise((resolve, reject) => {
-        db.any(`SELECT * FROM posts WHERE topik = ${topik}`)
+        const data = [
+            payload.topik
+        ]
+        db.any('SELECT * FROM posts WHERE topik = $1', data)
             .then(data => {
                 resolve(data);
             })
@@ -158,9 +161,9 @@ router.get('/report/:id', async function(req,res) {
 })
 */
 
-router.get('/filter/', async function(req,res) {
+router.get('/filter', async function(req,res) {
     try {
-        const admin = await filterPost(req.body.topik);
+        const admin = await filterPost(req.body);
         res.send(admin);
     }catch(err) {
         console.log(err);
