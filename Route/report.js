@@ -4,9 +4,14 @@ const path = require('path');
 const db = require('../Datastore/config');
 var today = new Date();
 
-function makeReport(user_id, description) {
+function makeReport(payload) {  // aman
     return new Promise((resolve, reject) => {
-        db.any('INSERT INTO report(user_id, description) VALUES ($1, $2)', [user_id, description])
+        const data = [
+            payload.user_id,
+            payload.description,
+            today
+        ]
+        db.any('INSERT INTO report(user_id, description, date) VALUES ($1, $2, $3)', data)
             .then(data => {
                 resolve(data);
             })

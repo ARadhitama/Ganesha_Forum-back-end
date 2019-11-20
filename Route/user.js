@@ -4,7 +4,7 @@ const path = require('path');
 const db = require('../Datastore/config');
 var today = new Date();
 
-function getUser() {    // aman
+function getUser() {    // aman 
     return new Promise((resolve, reject) => {
         db.any('SELECT user_id, email, status_admin, date_created, status_ban FROM users')
             .then(data => {
@@ -28,7 +28,7 @@ function getUserbyID(user_id) { // aman
     })
 }   
 
-function makeUser(payload) {
+function makeUser(payload) {    // aman
     return new Promise((resolve,reject) => {
         const data = [      
             payload.email,
