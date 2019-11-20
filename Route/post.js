@@ -17,7 +17,7 @@ function getPost() {        // aman
 
 function getPostByID(id) {
     return new Promise((resolve, reject) => {
-        db.any('SELECT * FROM posts WHERE id = ' + id)
+        db.any('SELECT * FROM posts WHERE id_user = ' + id)
             .then(data => {
                 resolve(data);
             })
@@ -136,7 +136,7 @@ router.delete('/:id', async function(req,res) {
     }
 })
 
-router.post('/like/:id', async function(req,res) {
+router.put('/like/:id', async function(req,res) {
     try {
         const admin = await addLikes(req.params.id);
         res.send(admin);
@@ -146,6 +146,7 @@ router.post('/like/:id', async function(req,res) {
     }
 })
 
+/* 
 router.get('/report/:id', async function(req,res) {
     try {
         const admin = await reportPost(req.params.id);
@@ -155,10 +156,11 @@ router.get('/report/:id', async function(req,res) {
         res.send(err);
     }
 })
+*/
 
-router.get('/filter/:topik', async function(req,res) {
+router.get('/filter/', async function(req,res) {
     try {
-        const admin = await filterPost(req.params.topik);
+        const admin = await filterPost(req.body.topik);
         res.send(admin);
     }catch(err) {
         console.log(err);
