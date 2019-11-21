@@ -21,7 +21,7 @@ exports.makeComment = (payload) => {
 
 exports.showComment = (id_post) => {
     return new Promise((resolve, reject) => {
-        db.any('SELECT * FROM comments WHERE id_post = ' + id_post)
+        db.any(`SELECT * FROM comments WHERE id_post = ${id_post} ORDER BY date DESC`)
             .then(data => {
                 resolve(data);
             })

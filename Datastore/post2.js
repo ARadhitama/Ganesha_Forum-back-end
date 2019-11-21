@@ -2,7 +2,7 @@ const db = require('./config');
 
 exports.getPost = () => {        // aman
     return new Promise((resolve, reject) => {
-        db.any('SELECT * FROM posts ORDER BY date')
+        db.any('SELECT * FROM posts ORDER BY date DESC')
             .then(data => {
                 resolve(data);
             })
