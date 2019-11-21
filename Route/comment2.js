@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const comment = require('../Datastore/comment2');
-const createResponse = require('..Datastore/response');
+const createResponse = require('../Datastore/response');
 
 router.get('/:id_post', async function(req, res) {
     try {

@@ -7,10 +7,10 @@ const bodyParser = require ('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use('/', require('./Route/user'));
-app.use('/', require('./Route/report'));
-app.use('/post', require('./Route/post'));
-app.use('/comment', require('./Route/comment'));
+app.use('/', require('./Route/user2'));
+app.use('/', require('./Route/report2'));
+app.use('/post', require('./Route/post2'));
+app.use('/comment', require('./Route/comment2'));
 
 
 const start = async () => {
