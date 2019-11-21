@@ -5,7 +5,7 @@ const db = require('../Datastore/config');
 
 function getPost() {        // aman
     return new Promise((resolve, reject) => {
-        db.any('SELECT * FROM posts')
+        db.any('SELECT * FROM posts ORDER BY date')
             .then(data => {
                 resolve(data);
             })
@@ -15,7 +15,7 @@ function getPost() {        // aman
     })
 }
 
-function getPostByID(id) {      // aman
+function getPostByUserID(id) {      // aman
     return new Promise((resolve, reject) => {
         db.any('SELECT * FROM posts WHERE id_user = ' + id)
             .then(data => {
@@ -121,7 +121,7 @@ router.post('/', async function(req,res) {
 
 router.get('/:id', async function(req,res) {
     try {
-        const admin = await getPostByID(req.params.id);
+        const admin = await getPostByUserID(req.params.id);
         res.send(admin);
     }catch(err) {
         console.log(err);
