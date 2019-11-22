@@ -29,7 +29,7 @@ exports.makePost = (payload) => {     // aman
         const info = [
             payload.topik,
             0,
-            payload.id_user,
+            3,
             payload.title,
             payload.text,
             today = new Date()
