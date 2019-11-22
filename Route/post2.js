@@ -80,9 +80,52 @@ router.get('/report/:id', async function(req,res) {
 })
 */
 
-router.get('/filter', async function(req,res) {
+router.get('/campuslife', async function(req,res) {
     try {
-        const data = await post.filterPost(req.body);
+		topik = "campus life"
+        const data = await post.filterPost(topik);
+        const result = createResponse(data, 200);
+		res.json(result);
+	}
+	catch(e) {
+		console.log(e);
+		const result = createResponse(e.toString(), 400);
+		res.json(result);
+	}
+})
+
+router.get('/academic', async function(req,res) {
+    try {
+		topik = "academic"
+        const data = await post.filterPost(topik);
+        const result = createResponse(data, 200);
+		res.json(result);
+	}
+	catch(e) {
+		console.log(e);
+		const result = createResponse(e.toString(), 400);
+		res.json(result);
+	}
+})
+
+router.get('/lifestyle', async function(req,res) {
+    try {
+		topik = "lifestyle"
+        const data = await post.filterPost(topik);
+        const result = createResponse(data, 200);
+		res.json(result);
+	}
+	catch(e) {
+		console.log(e);
+		const result = createResponse(e.toString(), 400);
+		res.json(result);
+	}
+})
+
+router.get('/entertainment', async function(req,res) {
+    try {
+		topik = "entertainment"
+        const data = await post.filterPost(topik);
         const result = createResponse(data, 200);
 		res.json(result);
 	}

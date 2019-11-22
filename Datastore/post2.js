@@ -81,12 +81,9 @@ function reportPost(id_post) {
     })
 }
 */
-exports.filterPost = (payload) => {
+exports.filterPost = (topik) => {
     return new Promise((resolve, reject) => {
-        const data = [
-            payload.topik
-        ]
-        db.any('SELECT * FROM posts WHERE topik = $1', data)
+        db.any('SELECT * FROM posts WHERE topik = $1', topik)
             .then(data => {
                 resolve(data);
             })
