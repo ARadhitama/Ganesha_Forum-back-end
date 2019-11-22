@@ -19,3 +19,7 @@ $ node index.js
 ```
 
 localhost:9000/home.html
+
+## PENJELASAN
+
+API sudah jalan semua, tetapi belum bisa diintegrasikan dengan desain.
