@@ -14,7 +14,7 @@ exports.getPost = () => {        // aman
 
 exports.getPostByUserID = (id) => {      // aman
     return new Promise((resolve, reject) => {
-        db.any('SELECT * FROM posts WHERE id_user = ' + id)
+        db.any(`SELECT * FROM posts WHERE id_user = ${id} ORDER BY date DESC`)
             .then(data => {
                 resolve(data);
             })
@@ -83,7 +83,7 @@ function reportPost(id_post) {
 */
 exports.filterPost = (topik) => {
     return new Promise((resolve, reject) => {
-        db.any('SELECT * FROM posts WHERE topik = $1', topik)
+        db.any(`SELECT * FROM posts WHERE topik = ${topik} ORDER BY date DESC`)
             .then(data => {
                 resolve(data);
             })
