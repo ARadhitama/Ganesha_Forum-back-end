@@ -4,11 +4,16 @@ var cors = require('cors')
 const express = require('express');
 const app = express();
 app.use(cors());
+
 var path = require('path')
+
 const bodyParser = require ('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
 app.use(express.static(path.join(__dirname, 'Views')))
+
+app.set('view engine', 'pug')
 
 
 
