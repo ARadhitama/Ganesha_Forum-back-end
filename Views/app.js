@@ -61,7 +61,12 @@
 // document.getElementById('').addEventListener('click', deletePost);
 // document.getElementById('').addEventListener('click', addLikes);
 // document.getElementById('').addEventListener('submit', filterPost);
-
-function getSelectTopik() {
-    var selectedTopik = document.getElementById("list").nodeValue;
+ 
+function getSubmit () {
+    var selectedTopic = document.getElementById('list').value;
+    var title = document.getElementById('inputTitleText').value;
+    var text = document.getElementById('message').value;
+    console.log(selectedTopic);
+    console.log(title);
+    console.log(text);
 }

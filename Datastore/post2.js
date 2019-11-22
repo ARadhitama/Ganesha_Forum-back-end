@@ -27,14 +27,13 @@ exports.getPostByUserID = (id) => {      // aman
 exports.makePost = (payload) => {     // aman
     return new Promise((resolve, reject) => {
         const info = [
-            payload.topik,
+            payload.list,
             0,
             3,
             payload.title,
-            payload.text,
+            payload.message,
             today = new Date()
         ]
-
         db.any('INSERT INTO posts(topik, likes, id_user, title, text, date) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', info)
             .then(data => {
                 resolve(data);
@@ -92,3 +91,4 @@ exports.filterPost = (topik) => {
             })
     })
 }
+

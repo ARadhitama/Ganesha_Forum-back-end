@@ -13,20 +13,23 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, 'Views')))
 
+app.set('views', path.join(__dirname, 'Views'))
 app.set('view engine', 'pug')
 
 
 
-app.use('/', require('./Route/user2'));
-app.use('/', require('./Route/report2'));
+
+app.use('', require('./Route/user2'));
+app.use('', require('./Route/report2'));
 app.use('/post', require('./Route/post2'));
 app.use('/comment', require('./Route/comment2'));
 
-app.get('/', async function(req,res) {
+app.get('/home', async function(req,res) {
     res.render('home', {
         message: 'GATAU'
     });
 })
+
 
 //app.listen(process.env.PORT, () => console.log('Server running'))
 const start = async () => {
