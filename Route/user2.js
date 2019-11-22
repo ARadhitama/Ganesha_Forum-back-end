@@ -19,8 +19,10 @@ router.get('/user', async function(req, res) {
 router.get('/user/:user_id', async function(req, res) {
     try {
         const data = await user.getUserbyID(req.params.user_id);
-        const result = createResponse(data, 200);
-		res.json(result);
+        res.render('profile', {
+			data: data,
+			posts: "gatau"
+		});
 	}
 	catch(e) {
 		console.log(e);

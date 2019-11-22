@@ -6,8 +6,9 @@ const createResponse = require('../Datastore/response');
 router.get('/', async function(req,res) {
     try {
         const data = await post.getPost();
-        const result = createResponse(data, 200);
-		res.json(result);
+        res.render('home', {
+			posts: data
+		});
 	}
 	catch(e) {
 		console.log(e);
@@ -33,8 +34,9 @@ router.post('/', async function(req,res) {
 router.get('/:id', async function(req,res) {
     try {
         const data = await post.getPostByUserID(req.params.id);
-        const result = createResponse(data, 200);
-		res.json(result);
+        res.render('profile', {
+			posts: data
+		});
 	}
 	catch(e) {
 		console.log(e);
@@ -83,10 +85,11 @@ router.get('/report/:id', async function(req,res) {
 
 router.get('/campuslife', async function(req,res) {
     try {
-		topik = "campus life"
+		const topik = "campus life"
         const data = await post.filterPost(topik);
-        const result = createResponse(data, 200);
-		res.json(result);
+        res.render('campuslife', {
+			posts: data
+		});
 	}
 	catch(e) {
 		console.log(e);
@@ -99,8 +102,9 @@ router.get('/academic', async function(req,res) {
     try {
 		topik = "academic"
         const data = await post.filterPost(topik);
-        const result = createResponse(data, 200);
-		res.json(result);
+        res.render('academic', {
+			posts: data
+		});
 	}
 	catch(e) {
 		console.log(e);
@@ -113,8 +117,9 @@ router.get('/lifestyle', async function(req,res) {
     try {
 		topik = "lifestyle"
         const data = await post.filterPost(topik);
-        const result = createResponse(data, 200);
-		res.json(result);
+        res.render('lifestyle', {
+			posts: data
+		});
 	}
 	catch(e) {
 		console.log(e);
@@ -127,8 +132,9 @@ router.get('/entertainment', async function(req,res) {
     try {
 		topik = "entertainment"
         const data = await post.filterPost(topik);
-        const result = createResponse(data, 200);
-		res.json(result);
+        res.render('entertainment', {
+			posts: data
+		});
 	}
 	catch(e) {
 		console.log(e);
